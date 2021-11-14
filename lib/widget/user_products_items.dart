@@ -17,7 +17,7 @@ class UserProductItem extends StatelessWidget {
       child: ListTile(
         leading: CircleAvatar(
           radius: 25,
-          backgroundImage: AssetImage(imageUrl),
+          backgroundImage: NetworkImage(imageUrl),
         ),
         title: Text(title),
         trailing: SizedBox(
@@ -26,8 +26,8 @@ class UserProductItem extends StatelessWidget {
             children: [
               IconButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, EditProductScreen.routeName,
-                        arguments: id);
+                    Navigator.of(context)
+                        .pushNamed(EditProductScreen.routeName, arguments: id);
                   },
                   icon: const Icon(
                     Icons.edit,
