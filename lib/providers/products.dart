@@ -71,10 +71,10 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) {
     var url = Uri.parse(
         'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product.json');
-    http
+    return http
         .post(url,
             body: json.encode({
               'title': product.title,
@@ -94,6 +94,9 @@ class Products with ChangeNotifier {
       _items.add(newProduct);
       // _items.insert(0, newProduct); // for start of the list
       notifyListeners();
+    }).catchError((onError) {
+      print(onError);
+      throw onError;
     });
   }
 
