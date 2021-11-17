@@ -87,6 +87,9 @@ class Products with ChangeNotifier {
       //   print(value['imageUrl']);
       //   print(value['isFavorite']);
       // });
+      if (extractedData.isEmpty) {
+      return;
+    }
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, proData) {
         loadedProducts.add(
