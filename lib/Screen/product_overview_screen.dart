@@ -57,6 +57,7 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             onSelected: (FilterOptions selectedValue) {
               setState(() {
                 if (selectedValue == FilterOptions.favorites) {
+                  
                   _showOnlyFavorites = true;
                 } else {
                   _showOnlyFavorites = false;

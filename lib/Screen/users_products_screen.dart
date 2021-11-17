@@ -10,9 +10,9 @@ class UserProductScreen extends StatelessWidget {
   static const routeName = '/user-product';
   const UserProductScreen({Key? key}) : super(key: key);
 
-  // Future<Void> _refresh(BuildContext context) async{
-  //   await Provider.of<Products>(context).fetc
-  // }
+  Future<void> _refresh(BuildContext context) async {
+    await Provider.of<Products>(context, listen: false).fetchandSetProducts();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +22,21 @@ class UserProductScreen extends StatelessWidget {
         IconButton(
           icon: const Icon(Icons.add),
           onPressed: () {
-            Navigator.pushNamed(context, EditProductScreen.routeName, arguments: '');
+            Navigator.pushNamed(context, EditProductScreen.routeName,
+                arguments: '');
           },
         ),
       ]),
       drawer: const Drawerscreen(),
-      body: 
-      // RefreshIndicator(
-        // onRefresh: ,
-        // child: 
-        ListView.builder(
+      body: RefreshIndicator(
+        onRefresh: () => _refresh(context),
+        child: ListView.builder(
           itemCount: productData.items.length,
           itemBuilder: (_, i) => UserProductItem(
             productData.items[i].id,
             productData.items[i].imageUrl,
             productData.items[i].title,
-          
-          // ),
+          ),
         ),
       ),
     );
