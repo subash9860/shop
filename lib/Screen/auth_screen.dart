@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/providers/auth.dart';
 
 enum AuthMode {
   signup,
@@ -96,7 +98,7 @@ class AuthCard extends StatefulWidget {
 class _AuthCardState extends State<AuthCard> {
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.login;
-  final Map<String, String> _authData = {
+  final Map<String, dynamic> _authData = {
     'email': '',
     'password': '',
   };
@@ -116,6 +118,8 @@ class _AuthCardState extends State<AuthCard> {
       // Log user in
     } else {
       // Sign user up
+      Provider.of<Auth>(context, listen: false)
+          .signup(_authData['email'], _authData['password']);
     }
     setState(() {
       _isLoading = false;
