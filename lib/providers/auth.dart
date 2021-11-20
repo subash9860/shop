@@ -4,10 +4,10 @@ import 'package:http/http.dart' as http;
 import 'package:shop/model/http_exception.dart';
 
 class Auth with ChangeNotifier {
-  late String _token;
+  String _token = '';
   // late DateTime _expiryDate;
-  late String _expiryDate;
-  late String _userId;
+  String _expiryDate = '';
+  String _userId = '';
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
@@ -27,7 +27,7 @@ class Auth with ChangeNotifier {
       final respondData = json.decode(respond.body);
 
       print(respondData);
-      if (respondData['error'] != null) {
+      if (respondData['error'] !=null) {
         throw HttpExpection(respondData['error']['message']);
       }
       _token = respondData['idToken'];
@@ -67,8 +67,8 @@ class Auth with ChangeNotifier {
     return null;
   }
 
-  bool get isAuth {
-    return token!.isNotEmpty;
+  bool? get isAuth {
+    return token != null;
   }
 
   String get userId {

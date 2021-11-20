@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/Screen/product_overview_screen.dart';
 
 import '../Screen/auth_screen.dart';
 import '../Screen/edit_product_screen.dart';
@@ -23,32 +24,43 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (ctx) => Auth()),
-        ChangeNotifierProvider(create: (ctx) => Products()),
-        ChangeNotifierProvider(create: (ctx) => Cart()),
-        ChangeNotifierProvider(create: (ctx) => Orders()),
-      ],
-      child: ChangeNotifierProvider(
-        create: (ctx) => Products(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
-                .copyWith(secondary: Colors.deepOrange),
-            fontFamily: 'Lato',
+        providers: [
+          ChangeNotifierProvider(create: (ctx) => Auth()),
+          ChangeNotifierProxyProvider<Auth, Products>(
+            create: (create) => Products('', []),
+            update: (ctx, auth, previousProducts) => Products(auth.token!,
+                previousProducts == null ? [] : previousProducts.items),
           ),
-          home: const AuthScreen(),
-          // const ProductsOverviewScreen(),
-          routes: {
-            ProductDetailScreen.routeName: (ctx) => const ProductDetailScreen(),
-            CartScreen.routeName: (ctx) => const CartScreen(),
-            OrderScreen.routeName: (ctx) => const OrderScreen(),
-            UserProductScreen.routeName: (ctx) => const UserProductScreen(),
-            EditProductScreen.routeName: (ctx) => const EditProductScreen(),
-          },
-        ),
-      ),
-    );
+          // ChangeNotifierProvider(create: (ctx) => Products()),
+          ChangeNotifierProvider(create: (ctx) => Cart()),
+          ChangeNotifierProvider(create: (ctx) => Orders()),
+        ],
+        child: Consumer<Auth>(
+          builder: (ctx, auth, _) => MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+                  .copyWith(secondary: Colors.deepOrange),
+              fontFamily: 'Lato',
+            ),
+            home: auth.isAuth!
+                ? const ProductsOverviewScreen()
+                : const AuthScreen(),
+            // const ProductsOverviewScreen(),
+            routes: {
+              ProductDetailScreen.routeName: (ctx) =>
+                  const ProductDetailScreen(),
+              CartScreen.routeName: (ctx) => const CartScreen(),
+              OrderScreen.routeName: (ctx) => const OrderScreen(),
+              UserProductScreen.routeName: (ctx) => const UserProductScreen(),
+              EditProductScreen.routeName: (ctx) => const EditProductScreen(),
+            },
+          ),
+        )
+        // ChangeNotifierProvider(
+        //   create: (ctx) => Products(),
+        //   child:
+
+        );
   }
 }

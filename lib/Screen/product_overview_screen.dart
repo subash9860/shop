@@ -31,17 +31,28 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
   //   super.initState();
   // }
 
+  var justTry = false;
+
   @override
   void didChangeDependencies() {
     if (_isiniti) {
       setState(() {
         _isloading = true;
       });
-      Provider.of<Products>(context).fetchandSetProducts().then((value) => (_) {
-            setState(() {
-              _isloading = false;
-            });
-          });
+      try {
+        Provider.of<Products>(context)
+            .fetchandSetProducts()
+            .then((value) => (_) {
+                  setState(() {
+                    _isloading = false;
+                  });
+                });
+      } catch (error) {
+        print(error);
+        setState(() {
+          justTry = true;
+        });
+      }
     }
     _isloading = false;
     super.didChangeDependencies();
@@ -57,7 +68,6 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
             onSelected: (FilterOptions selectedValue) {
               setState(() {
                 if (selectedValue == FilterOptions.favorites) {
-                  
                   _showOnlyFavorites = true;
                 } else {
                   _showOnlyFavorites = false;
@@ -94,11 +104,15 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
         ],
       ),
       drawer: const Drawerscreen(),
-      body: _isloading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : ProductsGrid(_showOnlyFavorites),
+      body: justTry
+          ? const Center(child: Text("Error"))
+          : SizedBox(
+              child: _isloading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ProductsGrid(_showOnlyFavorites),
+            ),
     );
   }
 }

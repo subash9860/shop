@@ -6,6 +6,8 @@ import 'dart:convert';
 import './product.dart';
 
 class Products with ChangeNotifier {
+  final String authToken;
+  Products(this.authToken, this._items);
   List<Product> _items = [
     // Product(
     //   id: 'p1',
@@ -41,7 +43,7 @@ class Products with ChangeNotifier {
     //   price: 49.99,
     //   imageUrl:
     //       // 'assets/pizza.jpg'
-    //       'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Cast-Iron-Pan.jpg/1024px-Cast-Iron-Pan.jpg',
+    //       'test',
     // ),
   ];
   // var _showFavoritesOnly = false;
@@ -72,24 +74,25 @@ class Products with ChangeNotifier {
   //   notifyListeners();
   // }
   Future<void> fetchandSetProducts() async {
-    var url = Uri.parse(
-        'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product.json');
+    print("auth token: $authToken");
+    final url = Uri.parse(
+        'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product.json?auth=$authToken');
     try {
       final respond = await http.get(url);
-      // print(json.decode(respond.body));
+      print("Rspond:${json.decode(respond.body)}");
 
       final extractedData = json.decode(respond.body) as Map<String, dynamic>;
-      // extractedData.forEach((key, value) {
-      //   print(key);
-      //   print(value['title']);
-      //   print(value['description']);
-      //   print(value['price']);
-      //   print(value['imageUrl']);
-      //   print(value['isFavorite']);
-      // });
+      extractedData.forEach((key, value) {
+        print(key);
+        print(value['title']);
+        print(value['description']);
+        print(value['price']);
+        print(value['imageUrl']);
+        print(value['isFavorite']);
+      });
       if (extractedData.isEmpty) {
-      return;
-    }
+        return;
+      }
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, proData) {
         loadedProducts.add(
@@ -113,7 +116,7 @@ class Products with ChangeNotifier {
 
   Future<void> addProduct(Product product) async {
     var url = Uri.parse(
-        'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product.json');
+        'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app//product.json?auth=$authToken');
 
     try {
       final response = await http.post(
@@ -147,7 +150,7 @@ class Products with ChangeNotifier {
     final proIndex = _items.indexWhere((element) => element.id == id);
     if (proIndex >= 0 && !proIndex.isNaN) {
       var url = Uri.parse(
-          'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product/$id.json');
+          'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product/$id.json?auth=$authToken');
       await http.patch(url,
           body: json.encode({
             'title': newProduct.title,
@@ -163,7 +166,7 @@ class Products with ChangeNotifier {
 
   Future<void> deleteProduct(String id) async {
     var url = Uri.parse(
-        'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product/$id.json');
+        'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product/$id.json?auth=$authToken');
     final execitingProductIndex =
         _items.indexWhere((element) => element.id == id);
     var existingProdcut = _items[execitingProductIndex];
