@@ -116,6 +116,8 @@ class _AuthCardState extends State<AuthCard> {
     });
     if (_authMode == AuthMode.login) {
       // Log user in
+      Provider.of<Auth>(context, listen: false)
+          .login(_authData['email'], _authData['password']);
     } else {
       // Sign user up
       Provider.of<Auth>(context, listen: false)
