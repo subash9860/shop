@@ -11,12 +11,14 @@ class UserProductScreen extends StatelessWidget {
   const UserProductScreen({Key? key}) : super(key: key);
 
   Future<void> _refresh(BuildContext context) async {
-    await Provider.of<Products>(context, listen: false).fetchandSetProducts();
+    await Provider.of<Products>(context, listen: false)
+        .fetchandSetProducts(true);
   }
 
   @override
   Widget build(BuildContext context) {
-    final productData = Provider.of<Products>(context);
+    // final productData = Provider.of<Products>(context);
+    print("rebuilding ....");
     return Scaffold(
       appBar: AppBar(title: const Text("Your products"), actions: [
         IconButton(
@@ -28,16 +30,29 @@ class UserProductScreen extends StatelessWidget {
         ),
       ]),
       drawer: const Drawerscreen(),
-      body: RefreshIndicator(
-        onRefresh: () => _refresh(context),
-        child: ListView.builder(
-          itemCount: productData.items.length,
-          itemBuilder: (_, i) => UserProductItem(
-            productData.items[i].id,
-            productData.items[i].imageUrl,
-            productData.items[i].title,
-          ),
-        ),
+      body: FutureBuilder(
+        future: _refresh(context),
+        builder: (ctx, snapshot) =>
+            snapshot.connectionState == ConnectionState.waiting
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : RefreshIndicator(
+                    onRefresh: () => _refresh(context),
+                    child: Consumer<Products>(
+                      builder: (ctx, productData, _) => Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                          itemCount: productData.items.length,
+                          itemBuilder: (_, i) => UserProductItem(
+                            productData.items[i].id,
+                            productData.items[i].imageUrl,
+                            productData.items[i].title,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
       ),
     );
   }

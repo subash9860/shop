@@ -7,7 +7,9 @@ import './product.dart';
 
 class Products with ChangeNotifier {
   final String authToken;
-  Products(this.authToken, this._items);
+  final String userId;
+
+  Products(this.authToken, this.userId, this._items);
   List<Product> _items = [
     // Product(
     //   id: 'p1',
@@ -73,10 +75,12 @@ class Products with ChangeNotifier {
   //   _showFavoritesOnly = false;
   //   notifyListeners();
   // }
-  Future<void> fetchandSetProducts() async {
+  Future<void> fetchandSetProducts([bool filterByUser = false]) async {
     print("auth token: $authToken");
-    final url = Uri.parse(
-        'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product.json?auth=$authToken');
+    final filterString =
+        filterByUser ? 'orderBy="creatorId"&equalTo="$userId"' : '';
+    var url = Uri.parse(
+        'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/product.json?auth=$authToken&$filterString');
     try {
       final respond = await http.get(url);
       print("Rspond:${json.decode(respond.body)}");
@@ -88,11 +92,15 @@ class Products with ChangeNotifier {
         print(value['description']);
         print(value['price']);
         print(value['imageUrl']);
-        print(value['isFavorite']);
+        // print(value['isFavorite']);
       });
       if (extractedData.isEmpty) {
         return;
       }
+      url = Uri.parse(
+          'https://shop-20ff4-default-rtdb.asia-southeast1.firebasedatabase.app/userFavorites/$userId.json?auth=$authToken');
+      final favoritesResponse = await http.get(url);
+      final favoriteData = json.decode(favoritesResponse.body);
       final List<Product> loadedProducts = [];
       extractedData.forEach((prodId, proData) {
         loadedProducts.add(
@@ -102,7 +110,9 @@ class Products with ChangeNotifier {
             description: proData['description'],
             price: proData['price'],
             imageUrl: proData['imageUrl'],
-            isFavorite: proData['isFavorite'],
+            isFavorite: favoriteData == null
+                ? false
+                : favoriteData[prodId] ?? false, //proData['isFavorite'],
           ),
         );
       });
@@ -126,7 +136,8 @@ class Products with ChangeNotifier {
           'description': product.description,
           'imageUrl': product.imageUrl,
           'price': product.price,
-          'isFavorite': product.isFavorite,
+          'creatorId': userId,
+          // 'isFavorite': product.isFavorite,
         }),
       );
       // .then((response) {
