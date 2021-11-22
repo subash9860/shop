@@ -1,6 +1,14 @@
 import 'dart:convert';
+// import 'dart:js';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shop/Screen/auth_screen.dart';
+import 'dart:async';
+
+// import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:shop/model/http_exception.dart';
 
 class Auth with ChangeNotifier {
@@ -8,6 +16,12 @@ class Auth with ChangeNotifier {
   // late DateTime _expiryDate;
   String _expiryDate = '';
   String _userId = '';
+  // late Timer _authTimer;
+
+  // FirebaseAuth auth = FirebaseAuth.instance;
+
+  // FirebaseApp secondaryApp = Firebase.app('SecondaryApp');
+// FirebaseAuth auth = FirebaseAuth.instanceFor(app: secondaryApp);
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {
@@ -27,7 +41,7 @@ class Auth with ChangeNotifier {
       final respondData = json.decode(respond.body);
 
       print(respondData);
-      if (respondData['error'] !=null) {
+      if (respondData['error'] != null) {
         throw HttpExpection(respondData['error']['message']);
       }
       _token = respondData['idToken'];
@@ -73,5 +87,28 @@ class Auth with ChangeNotifier {
 
   String get userId {
     return _userId;
+  }
+
+  void logout(BuildContext context) async {
+    // _token= null ;
+    // _userId  = null;
+    // _expiryDate = null;
+    Navigator.pushReplacementNamed(context, AuthScreen.routeName);
+
+    notifyListeners();
+  }
+
+  // FirebaseAuth auth = FirebaseAuth.instance;
+
+  // final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  // logout() async {
+  // await _firebaseAuth.signOut();
+  // }
+
+  void _atuologout() {
+    var time = DateTime.now().add(Duration(seconds: int.parse(_expiryDate)));
+    final timeToExpiry = time.difference(DateTime.now()).inSeconds;
+    // Timer(Duration(seconds: timeToExpiry), logout);
   }
 }

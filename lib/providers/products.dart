@@ -6,7 +6,7 @@ import 'dart:convert';
 import './product.dart';
 
 class Products with ChangeNotifier {
-  final String authToken;
+  final String? authToken ;
   final String userId;
 
   Products(this.authToken, this.userId, this._items);

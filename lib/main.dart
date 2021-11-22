@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProxyProvider<Auth, Products>(
             create: (create) => Products('', '', []),
             update: (ctx, auth, previousProducts) => Products(
-                auth.token!,
+                auth.token,
                 auth.userId,
                 previousProducts == null ? [] : previousProducts.items),
           ),
@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
                 : const AuthScreen(),
             // const ProductsOverviewScreen(),
             routes: {
+              AuthScreen.routeName : (ctx)=> const AuthScreen(),
               ProductDetailScreen.routeName: (ctx) =>
                   const ProductDetailScreen(),
               CartScreen.routeName: (ctx) => const CartScreen(),
