@@ -1,16 +1,34 @@
-# shop
+# Shop (simple e-commerce app)
+Shop app have following featurs:
+1. users can add, delete and edit products to the main page of the app.
+2. user can order the product.
+3. user can set favorites to products.
+4. user can login and logout.
 
-A new Flutter project.
+# [Test this in web](https://subash9860.github.io/shop_app)
 
 ## Getting Started
+```
+git clone git@github.com:subash9860/shop_app.git
+cd shop_app
+code .
+flutter pub get
+```
+then debug it.
 
-This project is a starting point for a Flutter application.
+### Whats implemented
 
-A few resources to get you started if this is your first Flutter project:
+- Firebase authentication
+- Firebase realTime database
+- Provider package for state management
+- Navigation push/pop to show details page
+- Stateless & Stateful Widgets
+- Custom widgets for list items, category items,  map, etc.
+- UI/UX
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+# Some Snapshot
+<img height="480px" src="assets/readme/1.png"> <img height="480px" src="assets/readme/2.png"> <img height="480px" src="assets/readme/3.png">
+<img height="480px" src="assets/readme/4.png"> <img height="480px" src="assets/readme/5.png"> <img height="480px" src="assets/readme/6.png">
+<img height="480px" src="assets/readme/7.png"> 
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Thank You for visiting.
