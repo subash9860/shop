@@ -1,0 +1,17 @@
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/shop
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/icudtl.dat
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/lib/libflutter_linux_gtk.so
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/assets/coffee.jpg
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/assets/pizza.jpg
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/assets/burger.jpg
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/assets/dessert.jpg
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/assets/fonts/Lato-Regular.ttf
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/assets/fonts/Anton-Regular.ttf
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/assets/fonts/Lato-Bold.ttf
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.json
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
+/home/subash/StudioProjects/shop_app/build/linux/x64/debug/bundle/data/flutter_assets/version.json
