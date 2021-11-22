@@ -5,7 +5,7 @@ Shop app have following featurs:
 3. user can set favorites to products.
 4. user can login and logout.
 
-# [Test this in web](https://subash9860.github.io/shop_app)
+# [Test this in web](https://subash9860.github.io/shop_app/#/)
 
 ## Getting Started
 ```
