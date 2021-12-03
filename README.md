@@ -7,6 +7,9 @@ Shop app have following featurs:
 
 # [Test this in web](https://subash9860.github.io/shop_app/#/)
 
+### [Click here for web view](https://subash9860.github.io/shop_app/#/)
+ Note: for bettter look in browser, make it size of 370 x 640 becuase it is only made for Mobile view only, not for web view.
+
 ## Getting Started
 ```
 git clone git@github.com:subash9860/shop_app.git
