@@ -5,9 +5,9 @@ Shop app have following featurs:
 3. user can set favorites to products.
 4. user can login and logout.
 
-# [Test this in web](https://subash9860.github.io/shop_app/#/)
+# [Test this in web](https://subash9860.github.io/shop/)
 
-### [Click here for web view](https://subash9860.github.io/shop_app/#/)
+### [Click here for web view](https://subash9860.github.io/shop/)
  Note: for bettter look in browser, make it size of 370 x 640 becuase it is only made for Mobile view only, not for web view.
 
 ## Getting Started
